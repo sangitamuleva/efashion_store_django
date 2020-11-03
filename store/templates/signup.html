@@ -1,0 +1,88 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="container-fluid">
+	<div class="p-5 m-5">
+		<div class="card mb-4">
+			<div class="row no-gutters">
+				<div class="col-md-4 m-1 pt-3">
+					<img
+						src="{% static '/img/signup_img.jpg' %}"
+						class="card-img rounded"
+						alt="..."
+					/>
+				</div>
+				<div class="col-md-7">
+					<div class="card-body">
+						<h2 class="card-title text-center">Create An Account</h2>
+
+						<div>
+							{% if error %}
+							<div class="alert alert-danger" role="alert">{{error}}</div>
+							{% endif %}
+							<form method="POST">
+								{%csrf_token%}
+								<div class="form-group">
+									<label for="first_name"><b>First Name</b></label>
+									<input
+										type="text"
+										class="form-control"
+										id="first_name"
+										name="first_name"
+										placeholder="John"
+                                        value="{{values.first_name}}"
+									/>
+								</div>
+								<div class="form-group">
+									<label for="last_name"><b>Last Name</b></label>
+									<input
+										type="last_name"
+										class="form-control"
+										id="last_name"
+										name="last_name"
+										placeholder="Smith"
+                                        value="{{values.last_name}}"
+									/>
+								</div>
+								<div class="form-group">
+									<label for="email"><b>Email address</b></label>
+									<input
+										type="email"
+										class="form-control"
+										id="email"
+										name="email"
+										placeholder="example@gmail.com"
+									/>
+								</div>
+								<div class="form-group">
+									<label for="phone"><b>Phone</b></label>
+									<input
+										type="text"
+										class="form-control"
+										id="phone"
+										name="phone"
+										placeholder="22222222"
+                                        value="{{values.phone}}"
+									/>
+								</div>
+
+								<div class="form-group">
+									<label for="password">Password</label>
+									<input
+										type="password"
+										class="form-control"
+										name="password"
+										id="password"
+										placeholder="********"
+                                        value="{{values.email}}" 
+									/>
+								</div>
+
+								<button type="submit" class="btn btn-info">Sign Up</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock content %}

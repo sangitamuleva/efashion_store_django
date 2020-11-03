@@ -7,3 +7,10 @@ class Product(models.Model):
     price=models.IntegerField(default=0)
     description=models.CharField(max_length=200)
     image=models.ImageField(upload_to='uploads/products/')
+
+    @staticmethod
+    def get_product_by_category(id):
+        if id:
+            return Product.objects.filter(category=id)
+        else :
+            return Product.objects.all()
