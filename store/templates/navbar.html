@@ -22,10 +22,15 @@
 		</ul>
 
 		<ul class="navbar-nav my-2 my-lg-0">
+		<li class="nav-item">
+					<a class="nav-link btn btn-light my-2 my-sm-0 ml-2" href="{% url 'cart' %}"
+						>Cart<span class="badge badge-info ml-2">{{request.session.cart.keys|length}}</span></a
+					>
+				</li>
 			{% if request.session.customer %}
 			
 			<li class="nav-item">
-				<a class="nav-link btn btn-light my-2 my-sm-0 ml-2" href="#"
+				<a class="nav-link btn btn-light my-2 my-sm-0 ml-2" href="{% url 'order' %}"
 					>Orders</a
 				>
 			</li>
@@ -57,11 +62,7 @@
 
 			{% else %}
 
-				<li class="nav-item">
-					<a class="nav-link btn btn-light my-2 my-sm-0 ml-2" href="#"
-						>Cart</a
-					>
-				</li>
+				
 				<li class="nav-item">
 					<a
 						class="nav-link btn btn-outline-info my-2 my-sm-0 ml-2"

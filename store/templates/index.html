@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% load cart %} {% block content %}
+{% extends 'base.html' %} {% load cart filters %} {% block content %}
 <div class="container-fluid mt-3">
 	<div class="row">
 		<div class="col-lg-2">
@@ -29,12 +29,15 @@
 			<div class="row mx-auto">
 				{%for p in products %}
 
-				<div class="card mx-auto mb-6" id='{{p.id}}' style="width: 18rem">
+				<div class="card mx-auto mb-3" id='{{p.id}}' style="width: 18rem">
 					<img src="{{p.image.url}}" class="card-img-top" alt="..." />
 					<div class="card-body">
 						<h5 class="card-title">{{p.name}}</h5>
 						<p class="card-text">{{p.description}}</p>
-					
+						
+					</div>
+					<div class='m-4'>
+						<h5 class="card-title">{{p.price|currency}}</h5>
 					</div>
 					<div class="card-footer">
 						{% if p|is_in_cart:request.session.cart  %}

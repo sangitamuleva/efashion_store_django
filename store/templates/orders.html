@@ -1,0 +1,44 @@
+{% extends 'base.html' %} {% load cart filters %} {% block content %}
+<div class="container">
+	<div class="border rounded p-4">
+		<h1 class="text-center mb-3 p-3">Order Summary</h1>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col"></th>
+					<th scope="col">Product</th>
+					<th scope="col">Order Date</th>
+					<th scope="col">Price</th>
+					<th scope="col">Quantity</th>
+					<th scope="col">Total</th>
+					<th scope="col">Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for o in orders %}
+				<tr>
+					<th scope="row">{{forloop.counter}}</th>
+					<td>
+						<img
+							src="{{o.product.image.url}}"
+							class="rounded"
+							style="height: 80px"
+							alt="..."
+						/>
+					</td>
+					<td>{{o.product.name}}</td>
+					<td>{{o.date}}</td>
+					<td>{{o.price|currency}}</td>
+
+					<td>{{o.quantity}}</td>
+					<td>{{o.price|order_total:o.quantity|currency}}</td>
+					<td><span class="badge badge-pill badge-info">{{o.status}}</span></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+
+{% endblock content %}
