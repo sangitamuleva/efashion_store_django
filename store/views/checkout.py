@@ -9,20 +9,22 @@ from django.views import  View
 class Checkout(View):
     
     def post(self , request):
-        address=request.POST.get('address')
-        phone=request.POST.get('phone')
-        customer=request.session.get('customer')
-        cart=request.session.get('cart')
-        products=Product.objects.filter(id__in=list(cart.keys()))
-        # print(products)
+        if request.session.get('customer'):
+            address=request.POST.get('address')
+            phone=request.POST.get('phone')
+            customer=request.session.get('customer')
+            cart=request.session.get('cart')
+            products=Product.objects.filter(id__in=list(cart.keys()))
+            # print(products)
 
-        for p in products:
-            order=Order(customer=Customer(id=customer),
-            address=address,
-            phone=phone,product=p,price=p.price,quantity=cart.get(str(p.id)))
-            order.save()
+            for p in products:
+                order=Order(customer=Customer(id=customer),
+                address=address,
+                phone=phone,product=p,price=p.price,quantity=cart.get(str(p.id)))
+                order.save()
 
-            request.session['cart']={}
-        return redirect('cart')
-
+                request.session['cart']={}
+            return redirect('index')
+        else:
+             return redirect('login')
     

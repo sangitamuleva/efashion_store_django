@@ -29,7 +29,8 @@
 				{% endfor %}
 			</tbody>
 			<tfoot>
-				<tr>
+			{% if request.session.cart  %}
+					<tr>
 					<th colspan='4' class='text-center'>
 						Total Amount
 					</th>
@@ -37,11 +38,24 @@
 						{{products|total_cart_amount:request.session.cart|currency}}
 					</th>
 				</tr>
+				{% else %}
+				<th colspan='5' class='text-center'>
+					<h3 class='text-center'>Empty Cart</h3>
+				</th>
+			{% endif %}
+			
 			</tfoot>
 		</table>
-		<div class='m-3 p-3'>
+		{% if request.session.cart  %}
+			<div class='m-3 p-3'>
 			<a href='' class='btn btn-warning border rounded float-right'  data-toggle="modal" data-target="#checkout_model">Proceed To Checkout</a>
 		</div>
+		{% else %}
+				<div class='m-3 p-3'>
+			 <a href='{% url 'index' %}' class='btn btn-info border rounded float-left' >Continue Shopping</a>
+		</div>
+		{% endif %}
+		
 	</div>
 </div>
 
