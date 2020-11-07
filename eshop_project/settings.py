@@ -26,12 +26,15 @@ SECRET_KEY = 'c$=#3**a#u@gura#gq(66q8qzmdasx_d=nqy@arwseni+r^&c$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = ['127.0.0.1','efashionstore.herokuapp.com']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+     'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,6 +46,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -79,7 +83,8 @@ WSGI_APPLICATION = 'eshop_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME':os.path.join(BASE_DIR, 'db.sqlite3')
     }
 }
 
@@ -116,15 +121,29 @@ USE_L10N = True
 
 USE_TZ = True
 
+ADMINS=[('Sangita', 'mulevasangita@gmail.com'), ]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS=(os.path.join(BASE_DIR,'static'),)
 
 MEDIA_URL = '/images/products/'
 
 MEDIA_ROOT = BASE_DIR
+
+
+WHITENOISE_USE_FINDERS = True
+
+import dj_database_url
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
